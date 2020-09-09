@@ -1,13 +1,13 @@
 {
   "name": "git-wiz",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
     "url": "https://github.com/moshfeu"
   },
   "bin": {
-    "git-add": "bin/index.js"
+    "git-wiz": "bin/index.js"
   },
   "dependencies": {
     "inquirer": "^7.3.3"
