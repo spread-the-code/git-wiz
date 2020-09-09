@@ -1,10 +1,10 @@
 {
   "name": "git-wiz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
-    "url": "https://github.com/moshfeu/"
+    "url": "https://github.com/moshfeu"
   },
   "bin": {
     "git-add": "bin/index.js"
@@ -17,9 +17,9 @@
     "utils"
   ],
   "repository": {
-    "url": "https://github.com/moshfeu/"
+    "url": "https://github.com/spread-the-code/git-wiz"
   },
-  "homepage": "https://github.com/spread-the-code/git-add",
+  "homepage": "https://github.com/spread-the-code/git-wiz",
   "license": "MIT",
   "description": "Make git commands interactive"
 }

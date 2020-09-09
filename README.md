@@ -1,4 +1,4 @@
-# Git Interactive
+# Git Wiz 🧙‍♂️
 
 This is a tool for running some of git commands in interactive mode.
 
