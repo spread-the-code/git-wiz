@@ -1,13 +1,25 @@
 {
-  "name": "git-add",
+  "name": "git-wiz",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "author": {
+    "email": "moshfeu.dev@gmail.com",
+    "name": "Mosh Feu",
+    "url": "https://github.com/moshfeu/"
+  },
   "bin": {
     "git-add": "bin/index.js"
   },
   "dependencies": {
-    "inquirer": "^7.3.3",
-    "simple-git": "^2.20.1"
-  }
+    "inquirer": "^7.3.3"
+  },
+  "files": [
+    "bin/index.js",
+    "utils"
+  ],
+  "repository": {
+    "url": "https://github.com/moshfeu/"
+  },
+  "homepage": "https://github.com/spread-the-code/git-add",
+  "license": "MIT",
+  "description": "Make git commands interactive"
 }
