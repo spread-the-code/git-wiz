@@ -1,6 +1,11 @@
+<img src="https://moshef9.wixsite.com/shield/_functions/view/git-wiz" />
+<img src="https://img.shields.io/npm/v/git-wiz" />
+
 # Git Wiz 🧙‍♂️
 
-This is a tool for running some of git commands in interactive mode.
+Git Wiz 🧙‍♂️ is a tool for running some of git commands in interactive mode.
+
+![screen record of the terminal with the tool](https://user-images.githubusercontent.com/3723951/92808490-75941500-f3c4-11ea-9ab0-e08072e9b178.gif)
 
 ## Getting Started
 
@@ -23,4 +28,4 @@ git-wiz
 ## Supported commands
 
 - `add`
-- `checkout` (TBD)
+- `reset`
