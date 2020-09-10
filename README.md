@@ -1,5 +1,5 @@
-<img src="https://moshef9.wixsite.com/shield/_functions/view/git-wiz" />
-<img src="https://img.shields.io/npm/v/git-wiz" />
+![thanks for stopping by](https://moshef9.wixsite.com/shield/_functions/view/git-wiz)
+![npm version](https://img.shields.io/npm/v/git-wiz)
 
 # Git Wiz 🧙‍♂️
 
