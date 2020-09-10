@@ -10,6 +10,7 @@
     "git-wiz": "bin/index.js"
   },
   "dependencies": {
+    "commander": "^6.1.0",
     "inquirer": "^7.3.3"
   },
   "files": [

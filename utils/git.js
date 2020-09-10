@@ -1,42 +1,76 @@
 //@ts-check
 const { execCommand } = require('../utils/exec');
 
+/**
+ * @typedef {{
+ *  status: 'tracked' | 'staged' | 'untracked'
+ *  path: string
+ * }} File
+ * @returns {Promise<Array<File>>}
+ */
 async function gitStatus() {
   const status = await execCommand('git status --porcelain=v2 -uall');
+  /**
+   * @type Array<File>
+   */
+  const initialFiles = [];
   const files = status
     .split(/\n/g)
     .filter((line) => line)
     .reduce((prev, line) => {
-      let status;
       const [index, ...params] = line.split(/ +/g);
+      const path = params[params.length - 1];
+
       if (index === '1') {
         const [stagedIndication, changedIndication] = params[0].split('');
+        if (stagedIndication !== '.') {
+          prev.push({
+            status: 'staged',
+            path
+          });
+        }
         if (changedIndication !== '.') {
-          status = 'tracked';
+          prev.push({
+            status: 'tracked',
+            path
+          });
         }
       } else if (index === '?') {
-        status = 'untracked';
-      }
-      if (status) {
         prev.push({
-          status,
-          path: params[params.length - 1]
-        })
+          status: 'untracked',
+          path
+        });
       }
       return prev;
-    }, []);
+    }, initialFiles);
 
   return files;
+}
+
+/**
+ * @param {string} command
+ * @param {Array<string>} files
+ */
+async function runCommand(command, files) {
+  const gitCommand = `git ${command} ${files.join(' ')}`;
+  await execCommand(gitCommand);
+  console.log('\x1b[0m', `"${gitCommand}"`, '\x1b[32m', 'did great 🤟');
 }
 
 /**
  * @param {Array<string>} files
  */
 async function gitAdd(files) {
-  const command = `git add ${files.join(' ')}`;
-  await execCommand(command);
-  console.log('\x1b[0m', `"${command}"`, '\x1b[32m', 'did great 🤟');
+  await runCommand('add', files);
+}
+
+/**
+ * @param {Array<string>} files
+ */
+async function gitReset(files) {
+  await runCommand('reset HEAD -- ', files);
 }
 
 exports.gitAdd = gitAdd;
+exports.gitReset = gitReset;
 exports.gitStatus = gitStatus;

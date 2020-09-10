@@ -1,4 +1,3 @@
-// @ts-check
 const inquirer = require('inquirer');
 /**
  * @param {Array<string>} choices
