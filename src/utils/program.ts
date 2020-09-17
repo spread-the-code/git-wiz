@@ -1,10 +1,10 @@
 import { program } from 'commander';
 import { add, reset } from './wiz';
-// import { version } from '../../package.json';
+import { version } from '../../package.json';
 
 export function init() {
   try {
-    program.version('1.2.4');
+    program.version(version);
 
     program
       .command('add')
