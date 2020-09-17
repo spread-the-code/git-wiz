@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.ts',
@@ -19,4 +20,7 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, 'bin'),
   },
+  plugins: [
+    new webpack.BannerPlugin({ banner: "#!/usr/bin/env node", raw: true }),
+  ]
 };
