@@ -1,10 +1,10 @@
-const { program } = require('commander');
-const { add, reset } = require('./wiz');
-const { version } = require('../package.json');
+import { program } from 'commander';
+import { add, reset } from './wiz';
+// import { version } from '../../package.json';
 
-function init() {
+export function init() {
   try {
-    program.version(version);
+    program.version('1.2.4');
 
     program
       .command('add')
@@ -21,5 +21,3 @@ function init() {
     console.log(error);
   }
 }
-
-exports.init = init;
