@@ -1,7 +1,7 @@
-const { showFilesChooser } = require('./cli');
-const { gitStatus, gitAdd, gitReset } = require('./git');
+import { showFilesChooser } from './cli';
+import { gitStatus, gitAdd, gitReset } from './git';
 
-async function add() {
+export async function add() {
   try {
     const status = (await gitStatus()).filter(
       (file) => file.status !== 'staged'
@@ -18,7 +18,7 @@ async function add() {
   }
 }
 
-async function reset() {
+export async function reset() {
   try {
     const status = (await gitStatus()).filter(
       (file) => file.status === 'staged'
@@ -37,6 +37,3 @@ async function reset() {
     console.log('\x1b[31m', 'Oops, something went wrong', err);
   }
 }
-
-exports.add = add;
-exports.reset = reset;

@@ -1,12 +1,8 @@
-//@ts-check
-const cp = require('child_process');
-/**
- * @param {string} command
- * @returns {Promise<string>}
- */
-function execCommand(command) {
+import {exec} from 'child_process';
+
+export function execCommand(command: string): Promise<string> {
   return new Promise((resolve, reject) =>
-    cp.exec(
+    exec(
       command,
       {
         cwd: process.cwd(),
@@ -22,5 +18,3 @@ function execCommand(command) {
     )
   );
 }
-
-exports.execCommand = execCommand;
