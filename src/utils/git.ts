@@ -53,3 +53,7 @@ export async function gitAdd(files: Array<string>) {
 export async function gitReset(files: Array<string>) {
   await runCommand('reset HEAD -- ', files);
 }
+
+export async function gitStash(files: Array<string>, message?: string) {
+  await runCommand(`stash push ${message ? `-m ${message}` : ''}`, files);
+}
