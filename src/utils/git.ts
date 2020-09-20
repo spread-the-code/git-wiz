@@ -5,14 +5,17 @@ type File = {
   path: string;
 };
 
-async function runCommand(command: string, files: Array<string>) {
-  const gitCommand = `git ${command} ${files.join(' ')}`;
-  await execCommand(gitCommand);
-  console.log('\x1b[0m', `"${gitCommand}"`, '\x1b[32m', 'did great 🤟');
+async function runCommand(command: string, files: Array<string>, stdio = false) {
+  const gitCommand = `${command} ${files.join(' ')}`;
+  await execCommand(gitCommand, stdio);
+  if (stdio) {
+    return;
+  }
+  console.log('\x1b[0m', `"git ${gitCommand}"`, '\x1b[32m', 'did great 🤟');
 }
 
 export async function gitStatus(): Promise<Array<File>> {
-  const status = await execCommand('git status --porcelain=v2 -uall');
+  const status = await execCommand('status --porcelain=v2 -uall');
   const files = status
     .split(/\n/g)
     .filter((line) => line)
@@ -51,5 +54,14 @@ export async function gitAdd(files: Array<string>) {
 }
 
 export async function gitReset(files: Array<string>) {
-  await runCommand('reset HEAD -- ', files);
+  await runCommand('reset HEAD --', files);
+}
+
+export async function gitStash(files: Array<string>, message?: string) {
+  await gitAdd(files);
+  await runCommand(`stash push${message ? ` -m ${message}` : ''}`, files);
+}
+
+export function gitDiff(files: Array<string>) {
+  return runCommand('diff', files, true);
 }

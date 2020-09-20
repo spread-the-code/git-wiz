@@ -1,13 +1,16 @@
 {
   "name": "git-wiz",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
     "url": "https://github.com/moshfeu"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build:prod": "webpack --config webpack.prod.js",
+    "package": "yarn build:prod && npm pack",
+    "publish": "yarn build:prod && npm publish"
   },
   "bin": {
     "git-wiz": "bin/index.js"
