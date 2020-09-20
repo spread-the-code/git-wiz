@@ -33,7 +33,7 @@ export const reset = withErrorHandler(async () => {
 export const stash = withErrorHandler(async () => {
   const status = (await gitStatus());
   if (!status.length) {
-    console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
+    console.log('\x1b[33m', 'Stash what exactly 🤥?');
     return;
   }
   const choices = status.map((file) => file.path);
@@ -50,7 +50,7 @@ export const stash = withErrorHandler(async () => {
 export const diff = withErrorHandler(async () => {
   const status = (await gitStatus());
   if (!status.length) {
-    console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
+    console.log('\x1b[33m', `You can't view diff of.. nothing 🧐`);
     return;
   }
   const choices = status.map((file) => file.path);
