@@ -3,7 +3,7 @@ import inquirer, { Question } from 'inquirer';
 export async function showFilesChooser(
   message: string,
   choices: Array<string>
-) {
+): Promise<Array<string>> {
   const { files } = await showFilesChooserAnd(message, choices, {});
   return files;
 }

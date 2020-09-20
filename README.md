@@ -29,3 +29,33 @@ git-wiz
 
 - `add`
 - `reset`
+- `stash`
+- `diff`
+
+## Development
+
+### Install and run
+
+```shell
+yarn
+yarn build [--watch]
+```
+
+### Test it
+
+```shell
+yarn link
+```
+
+Or
+
+```shell
+yarn add absolute/path/to/repo
+```
+
+Or
+
+```shell
+yarn package
+yarn add absolute/path/to/repo/git-wiz-1.[major].[minor].tgz
+```

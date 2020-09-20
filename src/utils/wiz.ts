@@ -1,41 +1,33 @@
 import { showFilesChooser, showFilesChooserAnd } from './cli';
-import { gitStatus, gitAdd, gitReset, gitStash } from './git';
+import { gitStatus, gitAdd, gitReset, gitStash, gitDiff } from './git';
 
 export const add = withErrorHandler(async () => {
-  try {
-    const status = (await gitStatus()).filter(
-      (file) => file.status !== 'staged'
-    );
-    if (!status.length) {
-      console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
-      return;
-    }
-    const choices = status.map((file) => file.path);
-    const files = await showFilesChooser('Files to add', choices);
-    await gitAdd(files);
-  } catch (err) {
-    console.log('\x1b[31m', 'Oops, something went wrong', err);
+  const status = (await gitStatus()).filter(
+    (file) => file.status !== 'staged'
+  );
+  if (!status.length) {
+    console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
+    return;
   }
+  const choices = status.map((file) => file.path);
+  const files = await showFilesChooser('Files to add', choices);
+  await gitAdd(files);
 });
 
 export const reset = withErrorHandler(async () => {
-  try {
-    const status = (await gitStatus()).filter(
-      (file) => file.status === 'staged'
+  const status = (await gitStatus()).filter(
+    (file) => file.status === 'staged'
+  );
+  if (!status.length) {
+    console.log(
+      '\x1b[33m',
+      'There are no files in stage. You have nothing to regret about 🦾'
     );
-    if (!status.length) {
-      console.log(
-        '\x1b[33m',
-        'There are no files in stage. You have nothing to regret about 🦾'
-      );
-      return;
-    }
-    const choices = status.map((file) => file.path);
-    const files = await showFilesChooser('Files to reset?', choices);
-    await gitReset(files);
-  } catch (err) {
-    console.log('\x1b[31m', 'Oops, something went wrong', err);
+    return;
   }
+  const choices = status.map((file) => file.path);
+  const files = await showFilesChooser('Files to reset?', choices);
+  await gitReset(files);
 });
 
 export const stash = withErrorHandler(async () => {
@@ -53,6 +45,18 @@ export const stash = withErrorHandler(async () => {
   });
 
   await gitStash(files, message);
+});
+
+export const diff = withErrorHandler(async () => {
+  const status = (await gitStatus());
+  if (!status.length) {
+    console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
+    return;
+  }
+  const choices = status.map((file) => file.path);
+  const files = await showFilesChooser('Files to diff', choices);
+
+  await gitDiff(files);
 });
 
 function withErrorHandler(fn: Function) {

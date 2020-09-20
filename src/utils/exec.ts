@@ -1,20 +1,16 @@
-import {exec} from 'child_process';
+import {exec, spawn, spawnSync} from 'child_process';
 
-export function execCommand(command: string): Promise<string> {
-  return new Promise((resolve, reject) =>
-    exec(
-      command,
-      {
+export function execCommand(command: string, stdio = false): Promise<string> {
+  return new Promise((resolve, reject) => {
+    try {
+      const result = spawnSync('git', command.split(' '), {
         cwd: process.cwd(),
-        encoding: 'utf8',
-      },
-      (err, stdout, stderr) => {
-        if (err) {
-          reject(stderr);
-        } else {
-          resolve(stdout);
-        }
-      }
-    )
-  );
+        stdio: stdio ? 'inherit' : 'pipe',
+        encoding: 'utf8'
+      });
+      resolve(result.stdout);
+    } catch (err) {
+      reject(err);
+    }
+  })
 }
