@@ -49,15 +49,6 @@ export async function gitStatus(): Promise<Array<File>> {
   return files;
 }
 
-export async function getAllChanges() {
-  const status = (await gitStatus());
-  if (!status.length) {
-    console.log('\x1b[33m', 'There are no changes here. Get back to work 🤓');
-    return;
-  }
-  return status.map((file) => file.path);
-}
-
 export async function gitAdd(files: Array<string>) {
   await runCommand('add', files);
 }
