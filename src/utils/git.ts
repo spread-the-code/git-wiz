@@ -3,10 +3,16 @@ import { execCommand } from './exec';
 type File = {
   status: 'tracked' | 'staged' | 'untracked';
   path: string;
+  deleted?: boolean;
 };
 
-async function runCommand(command: string, files: Array<string>, stdio = false) {
-  const gitCommand = `${command} ${files.join(' ')}`;
+async function runCommand(
+  command: string,
+  files: Array<string>,
+  args?: Array<string>,
+  stdio = false
+) {
+  const gitCommand = `${command} ${[...(args || []), ...files].join(' ')}`;
   await execCommand(gitCommand, stdio);
   if (stdio) {
     return;
@@ -19,29 +25,35 @@ export async function gitStatus(): Promise<Array<File>> {
   const files = status
     .split(/\n/g)
     .filter((line) => line)
-    .reduce((prev, line) => {
-      const [index, ...params] = line.split(/ +/g);
-      const path = params[params.length - 1];
+    .reduce<Array<File>>((prev, line) => {
+      try {
+        const [index, ...params] = line.split(/ +/g);
+        const path = params[params.length - 1];
 
-      if (index === '1') {
-        const [stagedIndication, changedIndication] = params[0].split('');
-        if (stagedIndication !== '.') {
+        if (index === '1') {
+          const [stagedIndication, changedIndication] = params[0].split('');
+          if (stagedIndication !== '.') {
+            prev.push({
+              status: 'staged',
+              path,
+              deleted: stagedIndication === 'D',
+            });
+          }
+          if (changedIndication !== '.') {
+            prev.push({
+              status: 'tracked',
+              path,
+              deleted: changedIndication === 'D',
+            });
+          }
+        } else if (index === '?') {
           prev.push({
-            status: 'staged',
+            status: 'untracked',
             path,
           });
         }
-        if (changedIndication !== '.') {
-          prev.push({
-            status: 'tracked',
-            path,
-          });
-        }
-      } else if (index === '?') {
-        prev.push({
-          status: 'untracked',
-          path,
-        });
+      } catch (err) {
+        console.log(line);
       }
       return prev;
     }, []);
@@ -62,6 +74,6 @@ export async function gitStash(files: Array<string>, message?: string) {
   await runCommand(`stash push${message ? ` -m ${message}` : ''}`, files);
 }
 
-export function gitDiff(files: Array<string>) {
-  return runCommand('diff', files, true);
+export function gitDiff(files: Array<string>, flags: Array<string>) {
+  return runCommand('diff', files, flags, true);
 }
