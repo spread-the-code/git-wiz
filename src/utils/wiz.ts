@@ -28,7 +28,7 @@ export const reset = withErrorHandler(async () => {
 });
 
 export const stash = withErrorHandler(async () => {
-  const status = await gitStatus();
+  const status = (await gitStatus()).filter(file => !file.deleted);
   if (!status.length) {
     console.log('\x1b[33m', 'Stash what exactly 🤥?');
     return;
