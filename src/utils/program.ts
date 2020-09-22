@@ -23,7 +23,10 @@ export function init() {
 
     program
       .command('diff')
-      .description('do "git diff" with style 🤔')
+      .allowUnknownOption()
+      .description(
+        'do "git diff" with style 🤔 (Accept any argument "git diff" accpets)'
+      )
       .action(diff);
 
     program.parse(process.argv);

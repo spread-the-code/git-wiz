@@ -1,5 +1,5 @@
 ![thanks for stopping by](https://moshfeudev.wixsite.com/shield/_functions/view/git-wiz)
-![npm version](https://img.shields.io/npm/v/git-wiz)
+[![npm version](https://img.shields.io/npm/v/git-wiz)](https://www.npmjs.com/package/git-wiz)
 
 # Git Wiz 🧙‍♂️
 

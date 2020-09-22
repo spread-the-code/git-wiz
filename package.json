@@ -1,6 +1,6 @@
 {
   "name": "git-wiz",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
@@ -24,6 +24,11 @@
   "homepage": "https://github.com/spread-the-code/git-wiz#readme",
   "license": "MIT",
   "description": "Make git commands interactive",
+  "keywords": [
+    "git",
+    "cli",
+    "node"
+  ],
   "dependencies": {
     "commander": "^6.1.0",
     "inquirer": "^7.3.3",
