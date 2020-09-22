@@ -28,7 +28,7 @@ export async function showFilesChooserAnd<
       choices,
       validate: (answer: string) => {
         if (answer.length < 1) {
-          return 'Are you tricking me 🤨? Please choose files to add';
+          return 'Are you tricking me 🤨? Please choose files';
         }
         return true;
       },
