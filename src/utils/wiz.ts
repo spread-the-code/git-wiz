@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { showFilesChooser, showFilesChooserAnd } from './cli';
-import { gitStatus, gitAdd, gitReset, gitStash, gitDiff } from './git';
+import { gitStatus, gitAdd, gitReset, gitStash, gitDiff, gitMv } from './git';
 
 export const add = withErrorHandler(async () => {
   const status = (await gitStatus()).filter((file) => file.status !== 'staged');
@@ -65,6 +65,10 @@ export const diff = withErrorHandler(async (comObj: Command) => {
   const files = await showFilesChooser('Files to diff', choices);
 
   await gitDiff(files, comObj.args);
+});
+
+export const rename = withErrorHandler(async ({args: [path, newName]}: Command) => {
+  await gitMv(path, newName);
 });
 
 function withErrorHandler(fn: Function) {

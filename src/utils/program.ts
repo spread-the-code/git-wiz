@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { add, diff, reset, stash } from './wiz';
+import { add, diff, rename, reset, stash } from './wiz';
 import { version } from '../../package.json';
 
 export function init() {
@@ -28,6 +28,13 @@ export function init() {
         'do "git diff" with style 🤔 (Accept any argument "git diff" accpets)'
       )
       .action(diff);
+
+    program
+      .command('rename <path> <newName>')
+      .description(
+        'do "git mv" (for renaming) with style 🔖'
+      )
+      .action(rename);
 
     program.parse(process.argv);
   } catch (error) {
