@@ -1,4 +1,5 @@
 import { execCommand } from './exec';
+import { basename } from 'path';
 
 type File = {
   status: 'tracked' | 'staged' | 'untracked';
@@ -72,9 +73,17 @@ export async function gitReset(files: Array<string>) {
 export async function gitStash(files: Array<string>, message?: string) {
   await gitAdd(files);
   // sorry for the 'replace', the space conflicts with: https://github.com/spread-the-code/git-wiz/blob/134f7cb9053cc20edcb0b969848d39d836b0ce31/src/utils/exec.ts#L6
-  await runCommand(`stash push${message ? ` -m ${message.replace(/ /g, '-')}` : ''}`, files);
+  await runCommand(
+    `stash push${message ? ` -m ${message.replace(/ /g, '-')}` : ''}`,
+    files
+  );
 }
 
 export function gitDiff(files: Array<string>, flags: Array<string>) {
   return runCommand('diff', files, flags, true);
+}
+
+export function gitMv(path: string, newName: string) {
+  const newPath = path.replace(basename(path), newName);
+  return runCommand('mv', [], [path, newPath]);
 }

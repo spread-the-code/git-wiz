@@ -31,6 +31,7 @@ git-wiz
 - `reset`
 - `stash`
 - `diff`
+- `rename` (`mv`)
 
 ## Development
 
