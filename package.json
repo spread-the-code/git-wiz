@@ -12,6 +12,7 @@
     "package": "yarn build:prod && npm pack",
     "publish": "yarn build:prod && npm publish"
   },
+  "types": "./types/inquirer-autocomplete-prompt.d.ts",
   "bin": {
     "git-wiz": "bin/index.js"
   },
@@ -31,15 +32,17 @@
   ],
   "dependencies": {
     "commander": "^6.1.0",
-    "inquirer": "^7.3.3"
+    "fast-glob": "^3.2.4",
+    "inquirer": "^7.3.3",
+    "inquirer-autocomplete-prompt": "/Users/moshef/Documents/projects/inquirer-autocomplete-prompt/inquirer-autocomplete-prompt-1.2.0.tgz"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
     "json-loader": "^0.5.7",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-node-externals": "^2.5.2",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2"
+    "webpack-node-externals": "^2.5.2"
   }
 }

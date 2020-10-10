@@ -30,11 +30,17 @@ export function init() {
       .action(diff);
 
     program
-      .command('rename <path> <newName>')
+      .command('rename')
       .description(
         'do "git mv" (for renaming) with style 🔖'
       )
       .action(rename);
+    // program
+    //   .command('rename <path> <newName>')
+    //   .description(
+    //     'do "git mv" (for renaming) with style 🔖'
+    //   )
+    //   .action(rename);
 
     program.parse(process.argv);
   } catch (error) {

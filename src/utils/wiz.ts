@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { showFilesChooser, showFilesChooserAnd } from './cli';
+import { chooseFileFromFileSystemAnd, showFilesChooser, showFilesChooserAnd } from './cli';
 import { gitStatus, gitAdd, gitReset, gitStash, gitDiff, gitMv } from './git';
 
 export const add = withErrorHandler(async () => {
@@ -67,8 +67,18 @@ export const diff = withErrorHandler(async (comObj: Command) => {
   await gitDiff(files, comObj.args);
 });
 
-export const rename = withErrorHandler(async ({args: [path, newName]}: Command) => {
-  await gitMv(path, newName);
+// export const rename = withErrorHandler(async ({args: [path, newName]}: Command) => {
+//   await gitMv(path, newName);
+// });
+
+export const rename = withErrorHandler(async () => {
+  const {path, newName} = await chooseFileFromFileSystemAnd({
+    type: 'input',
+    name: 'newName',
+    message: 'New name (Can has a different extension)',
+    validate: name => name.length ? true : 'Hello.. new name? 🙄'
+  });
+  console.log(path, newName);
 });
 
 function withErrorHandler(fn: Function) {
