@@ -1,5 +1,9 @@
 import { Command } from 'commander';
-import { showFilesChooser, showFilesChooserAnd } from './cli';
+import {
+  chooseFileFromFileSystemAnd,
+  showFilesChooser,
+  showFilesChooserAnd,
+} from './cli';
 import { gitStatus, gitAdd, gitReset, gitStash, gitDiff, gitMv } from './git';
 
 export const add = withErrorHandler(async () => {
@@ -28,7 +32,7 @@ export const reset = withErrorHandler(async () => {
 });
 
 export const stash = withErrorHandler(async () => {
-  const status = (await gitStatus()).filter(file => !file.deleted);
+  const status = (await gitStatus()).filter((file) => !file.deleted);
   if (!status.length) {
     console.log('\x1b[33m', 'Stash what exactly 🤥?');
     return;
@@ -67,7 +71,13 @@ export const diff = withErrorHandler(async (comObj: Command) => {
   await gitDiff(files, comObj.args);
 });
 
-export const rename = withErrorHandler(async ({args: [path, newName]}: Command) => {
+export const rename = withErrorHandler(async () => {
+  const { path, newName } = await chooseFileFromFileSystemAnd({
+    type: 'input',
+    name: 'newName',
+    message: 'New name (Can has a different extension)',
+    validate: (name) => (name.length ? true : 'Hello.. new name? 🙄'),
+  });
   await gitMv(path, newName);
 });
 

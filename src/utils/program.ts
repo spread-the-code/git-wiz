@@ -30,7 +30,7 @@ export function init() {
       .action(diff);
 
     program
-      .command('rename <path> <newName>')
+      .command('rename')
       .description(
         'do "git mv" (for renaming) with style 🔖'
       )

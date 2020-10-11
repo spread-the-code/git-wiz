@@ -1,4 +1,10 @@
 import inquirer, { Question } from 'inquirer';
+import glob from 'fast-glob';
+
+inquirer.registerPrompt(
+  'autocomplete',
+  require('inquirer-autocomplete-prompt')
+);
 
 export async function showFilesChooser(
   message: string,
@@ -34,5 +40,22 @@ export async function showFilesChooserAnd<
       },
     },
     ...additionalQuestionsArray,
+  ]);
+}
+
+export function chooseFileFromFileSystemAnd(
+  ...additionalQuestions: Array<Question>
+) {
+  return inquirer.prompt([
+    {
+      type: 'autocomplete',
+      name: 'path',
+      message: 'Search by file name',
+      pageSize: 4,
+      source: (_answers, input = '*') => {
+        return glob(`**/*${input}*`);
+      },
+    },
+    ...additionalQuestions,
   ]);
 }

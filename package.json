@@ -1,6 +1,6 @@
 {
   "name": "git-wiz",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
@@ -31,15 +31,17 @@
   ],
   "dependencies": {
     "commander": "^6.1.0",
-    "inquirer": "^7.3.3"
+    "fast-glob": "^3.2.4",
+    "inquirer": "^7.3.3",
+    "inquirer-autocomplete-prompt": "git+https://github.com/moshfeu/inquirer-autocomplete-prompt.git"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
     "json-loader": "^0.5.7",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-node-externals": "^2.5.2",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2"
+    "webpack-node-externals": "^2.5.2"
   }
 }

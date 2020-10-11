@@ -1,5 +1,5 @@
 import { execCommand } from './exec';
-import { basename } from 'path';
+import { join, parse } from 'path';
 
 type File = {
   status: 'tracked' | 'staged' | 'untracked';
@@ -84,6 +84,8 @@ export function gitDiff(files: Array<string>, flags: Array<string>) {
 }
 
 export function gitMv(path: string, newName: string) {
-  const newPath = path.replace(basename(path), newName);
+  const {dir, ext} = parse(path);
+  const {name, ext: newExt} = parse(newName);
+  const newPath = join(dir, `${name}${newExt || ext}`);
   return runCommand('mv', [], [path, newPath]);
 }

@@ -10,7 +10,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "types": [
-      "commander"
+      "commander",
+      "inquirer-autocomplete-prompt"
     ]
   }
 }
