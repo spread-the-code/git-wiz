@@ -12,7 +12,6 @@
     "package": "yarn build:prod && npm pack",
     "publish": "yarn build:prod && npm publish"
   },
-  "types": "./types/inquirer-autocomplete-prompt.d.ts",
   "bin": {
     "git-wiz": "bin/index.js"
   },
@@ -34,6 +33,7 @@
     "commander": "^6.1.0",
     "fast-glob": "^3.2.4",
     "inquirer": "^7.3.3",
+    "//TODO wait for inquirer-autocomplete-prompt to merge": "",
     "inquirer-autocomplete-prompt": "/Users/moshef/Documents/projects/inquirer-autocomplete-prompt/inquirer-autocomplete-prompt-1.2.0.tgz"
   },
   "devDependencies": {
