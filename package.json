@@ -10,7 +10,7 @@
     "build": "webpack",
     "build:prod": "webpack --config webpack.prod.js",
     "package": "yarn build:prod && npm pack",
-    "publish": "yarn build:prod && npm publish"
+    "deploy": "yarn build:prod && npm publish"
   },
   "bin": {
     "git-wiz": "bin/index.js"
