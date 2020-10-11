@@ -1,6 +1,6 @@
 {
   "name": "git-wiz",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": {
     "email": "moshfeu.dev@gmail.com",
     "name": "Mosh Feu",
@@ -33,8 +33,7 @@
     "commander": "^6.1.0",
     "fast-glob": "^3.2.4",
     "inquirer": "^7.3.3",
-    "//TODO wait for inquirer-autocomplete-prompt to merge": "",
-    "inquirer-autocomplete-prompt": "/Users/moshef/Documents/projects/inquirer-autocomplete-prompt/inquirer-autocomplete-prompt-1.2.0.tgz"
+    "inquirer-autocomplete-prompt": "git+https://github.com/moshfeu/inquirer-autocomplete-prompt.git"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",

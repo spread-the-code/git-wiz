@@ -53,7 +53,7 @@ export function chooseFileFromFileSystemAnd(
       message: 'Search by file name',
       pageSize: 4,
       source: (_answers, input = '*') => {
-        return glob(`**/*${input}*.*`);
+        return glob(`**/*${input}*`);
       },
     },
     ...additionalQuestions,

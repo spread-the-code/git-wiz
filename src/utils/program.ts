@@ -35,12 +35,6 @@ export function init() {
         'do "git mv" (for renaming) with style 🔖'
       )
       .action(rename);
-    // program
-    //   .command('rename <path> <newName>')
-    //   .description(
-    //     'do "git mv" (for renaming) with style 🔖'
-    //   )
-    //   .action(rename);
 
     program.parse(process.argv);
   } catch (error) {
