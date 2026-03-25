@@ -7,6 +7,12 @@ type File = {
   deleted?: boolean;
 };
 
+export type Worktree = {
+  path: string;
+  branch: string;
+  isMain: boolean;
+};
+
 async function runCommand(
   command: string,
   files: Array<string>,
@@ -88,4 +94,33 @@ export function gitMv(path: string, newName: string) {
   const {name, ext: newExt} = parse(newName);
   const newPath = join(dir, `${name}${newExt || ext}`);
   return runCommand('mv', [], [path, newPath]);
+}
+
+export async function gitWorktreeList(): Promise<Array<Worktree>> {
+  const output = await execCommand('worktree list --porcelain');
+  const worktrees: Array<Worktree> = [];
+  const blocks = output.trim().split('\n\n').filter((block) => block.trim());
+  let isFirst = true;
+  for (const block of blocks) {
+    const lines = block.split('\n');
+    const pathLine = lines.find((l) => l.startsWith('worktree '));
+    const branchLine = lines.find((l) => l.startsWith('branch '));
+    if (pathLine) {
+      const worktreePath = pathLine.replace('worktree ', '');
+      const branch = branchLine
+        ? branchLine.replace('branch refs/heads/', '')
+        : '(detached HEAD)';
+      worktrees.push({ path: worktreePath, branch, isMain: isFirst });
+      isFirst = false;
+    }
+  }
+  return worktrees;
+}
+
+export async function gitWorktreeAdd(worktreePath: string, branch: string) {
+  await runCommand('worktree add', [worktreePath], ['-b', branch]);
+}
+
+export async function gitWorktreeRemove(worktreePath: string) {
+  await runCommand('worktree remove', [worktreePath]);
 }

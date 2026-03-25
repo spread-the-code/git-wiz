@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { add, diff, rename, reset, stash } from './wiz';
+import { add, diff, rename, reset, stash, worktreeAdd, worktreeOpen, worktreeDelete } from './wiz';
 import { version } from '../../package.json';
 
 export function init() {
@@ -35,6 +35,25 @@ export function init() {
         'do "git mv" (for renaming) with style 🔖'
       )
       .action(rename);
+
+    const worktree = program
+      .command('worktree')
+      .description('manage git worktrees 🌲');
+
+    worktree
+      .command('add')
+      .description('add a new worktree 🌱')
+      .action(worktreeAdd);
+
+    worktree
+      .command('open')
+      .description('open a worktree in your editor 📂')
+      .action(worktreeOpen);
+
+    worktree
+      .command('delete')
+      .description('delete a worktree 🗑️')
+      .action(worktreeDelete);
 
     program.parse(process.argv);
   } catch (error) {
