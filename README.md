@@ -33,6 +33,20 @@ git-wiz
 - `diff`
 - `rename` (`mv`)
 
+## Configuration
+
+Create a `.gitwizrc` file in the root of your project to configure git-wiz.
+
+### Exclude files/folders from `rename`
+
+The `rename` command searches all files in the current directory. Use the `exclude` option to skip specific files or folders (supports glob patterns):
+
+```json
+{
+  "exclude": ["node_modules/**", "dist/**", ".git/**"]
+}
+```
+
 ## Development
 
 ### Install and run

@@ -1,5 +1,6 @@
 import inquirer, { Question } from 'inquirer';
 import glob from 'fast-glob';
+import { getConfig } from './config';
 
 inquirer.registerPrompt(
   'autocomplete',
@@ -46,6 +47,7 @@ export async function showFilesChooserAnd<
 export function chooseFileFromFileSystemAnd(
   ...additionalQuestions: Array<Question>
 ) {
+  const { exclude } = getConfig();
   return inquirer.prompt([
     {
       type: 'autocomplete',
@@ -53,7 +55,7 @@ export function chooseFileFromFileSystemAnd(
       message: 'Search by file name',
       pageSize: 4,
       source: (_answers, input = '*') => {
-        return glob(`**/*${input}*`);
+        return glob(`**/*${input}*`, { ignore: exclude });
       },
     },
     ...additionalQuestions,
