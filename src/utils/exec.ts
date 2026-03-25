@@ -14,3 +14,11 @@ export function execCommand(command: string, stdio = false): Promise<string> {
     }
   })
 }
+
+export function openInEditor(path: string): void {
+  const editor = process.env.VISUAL || process.env.EDITOR || 'code';
+  spawnSync(editor, [path], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+  });
+}
